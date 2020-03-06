@@ -1,0 +1,37 @@
+
+		#prvo sortiranje obicnog niza od manjeg ka vecem
+
+	movl $0, %esi
+	movl $1, %edi
+	jmp opet1
+
+
+opet:	addl $1, %esi
+	addl $1, %edi
+
+
+opet1:	cmpl %edi, n
+	je sledeci_kod			#jl manje	sledeci kod tj sledeci algoritam podzadatak
+
+
+	movl br(,%esi,4), %eax
+	movl br(,%edi,4), %ebx
+
+	cmpl %eax, %ebx
+	jl alg1				#jl manje znaci ako je u ebx manje onda treba algoritam za menjaje ako ne onda ok
+	jmp opet
+	
+	
+alg1:
+	movl %ebx, br(,%esi,4)
+	movl %eax, br(,%edi,4)
+	
+
+	movl $0, %esi
+	movl $1, %edi
+	jmp opet1
+
+#============================================
+#sortiranje quad brojeva
+
+

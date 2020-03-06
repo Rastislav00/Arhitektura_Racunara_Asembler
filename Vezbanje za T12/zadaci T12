@@ -1,0 +1,109 @@
+Za uneti string sa tastature proveri da li sadrzi vise slova ili
+znakova koji nisu slova.
+
+Za uneti string(max=40) zameniti velika slova malim
+slovima, mala velikim, brojeve zameniti zvezdicom i na
+kraju ispisati string.
+
+Jedan niz, prebrojati parne i neparne i ispisati vise parni, vise
+neparnih ili jednako parnih-neparnih
+
+ za uneti string proveriti koliko ima samoglasnika i
+smestiti svaki posebno u promenljive a,e,i,o,u i ukoliko
+ima samoglasnika treba da se ispiše na izlaz &quot;Sting ima
+samoglasnike&quot; a ako nema &quot;String nema samoglasnika&quot; 
+
+Ucitati rec maksimalne duzine 20 (npr. fakultet), nju
+transformisanu staviti u neki string koji je vec zadat.
+Transformacija je ovakva : fa ak ku ul lt te et.. uz sve to
+ima zadata i promenljiva &#39;razmak&#39; koja kad je 1, program
+ispisuje bas tako kao gore, a kad je 0 faakkuulltteet.
+(Tako nekako)
+
+Uneti dva stringa: prvi (max=40 karaktera), drugi (tačno
+4 karaktera). U drugi string upisati zamenu slova npr. &quot;
+M=t&quot; i program bi trebalo da u prvom stringu gde god
+naiđe na slovo M zameni slovom t. 
+Primer:
+Prvi string: Mama
+Drugi string: M=t 
+Rezultat: tama
+(ako se unese veliko veliko menjas,ako se unese malo
+malo menjas)
+
+Dat je broj elemenata (BREL= 10) i dva niza sa toliko
+clanova (A i B). 
+Treba napraviti novi niz sa BREL brojem clanova, ciji su
+prva dva clana zbirovi prvih clanova iz A i B 
+C[1]= A[1] + B[1], C[2]= A[2] + B[2]
+a svaki treci kada se oduzme B od A
+C[3]= A[3] - B[3], 
+I tako u krug za sve clanove. Posle da se u novom nizu
+prebroje nule i negativni clanovi i da se ako su svi
+elementi pozitivni ispise &quot;Svi el su pozitivni&quot;, a ako nisu
+&quot;Nisu svi el pozitivni.
+* mora da radi za bilo koji broj clanova veci od nule, a ne
+samo za 10 koji je u primeru
+
+Data su 2 stringa iste duzine, treba da odgovarajuce
+clanove prvog stringa xor sa drugim(prvi sa prvim itd) i
+upises u prvi string i ako je dati karakter manji od 32,
+dodati na njega 32 i da kao povratnu vrednost vidis
+koliko ima neparnih elemenata(u asci je neparan) u
+prvom originalnom stringu,
+Prvi strin Hasanaginica a drugi nez kako je isao...
+
+Potprogram koji kao argumente prima pokazivac na niz
+elemenata tipa short int i broj elemenata tog niza, zatim
+proverava za svaki clan niza da li u njegovom binarnom
+zapisu ima vise nula ili jedinica. Ako ima vise nula, treba
+invertovati sve bitove, ako ima vise jedinica, treba
+invertovati samo prvi bit. Kao povratnu vrednost program
+treba da prosledi broj elemenata niza kojima je u
+binarnom zapisu broj jedinica jednak broju nula
+(neizmenjeni clanovi niza)
+
+Potpr. koji kao argument prima pokazivac na string. Za
+svaki karakter: 1) ako je tacka ili razmak ne menjati nista
+2) ako je na sedmom bitu 1 uraditi shift udesno 3) ako su
+i sedmi i sesti bit 0 shiftovati ulevo sve dok sesti bit ne
+bude 1. Vratiti broj izmenjenih karaktera.
+
+Dobiješ string npr &quot;k7jsja7ha??4&quot; maksimalne duzine 30
+racuna se u tih 30 i poslednji znak (enter) i da sabereš sve
+cifre iz stringa i da uradiš njihovu aritmetičku sredinu
+cjelobrojnu npr 11:2 je 5.5 ali ispisuje se 5 stim ako dođe do
+
+prekoracenje u konverziji broja ispisati da je to u pitanju, a ako
+je u sabiranju brojeva isto ispisati gresku. I na kraju ispisati
+rezultat, ako su samo slova ili prazan string rezultat je 0. U
+stringu neće doći sama nula ili broj koji pocinje sa nula
+(0,012,013..) tako da to ne treba provjeravati koverzije se
+rade u dekadni sistem i rezultat iz dekadnog u string.
+ A ček ako u stringu imaš dve cifre jednu do druge na primer -
+:23&amp;&quot; da li se to računa kao broj 23 ili posebno gledaš broj 2 i
+broj 3?
+ Kao 23
+ Dok prolazite kroz string sačuvate adresu na kojoj ste
+trenutno u eax, ako je to broj uvećajte sadržaj nekog registra
+za 1 npr ebx, idemo na sledeću poziciju stringa ne ubacujemo
+je opet u eax jer smo imali broj, ako je opet sledeći član
+stringa broj uvećajte samo ebx za još jedan, idete dalje kroz
+string ako je sledeće nešto što nije broj vi u eax imate početnu
+adresu prve cifre u stringu i u ebx ukupan broj cifara koje ste
+nasli odradite konverziju pa opet ispocetka ovu provjeru. U
+ovom slucaju &quot;a12bbb..&quot; imaćete adresu jedinice u eax i u ebx
+imaćete 2 a to su dvije cifre 1 i 2, pa sad dalje smislite
+konverziju, valjda je šta pomoglo.
+
+Unosi se string, baza, i kod, i string treba da se kodira
+tako sto se svako slovo pomeri u abecedi za onoliko
+koliko je kod, stim sto se pazi da ako je npr z mora
+ispocetka abeceda. Broje se razmaci i ispisuju se stim
+sto se u string konvertuju koristeci unetu bazu koja je
+izmedju 2 i 36. Greske su da je prekoracenje stringa,
+greske pri unosu koda i baze i da baza nije izmedju 2 i
+36. I treba sve onako da se pise &quot;unesite string&quot;.I znakovi
+
+koji nisu slova se preskacu, a umesto razmaka se stavlja
+:)(smajli)

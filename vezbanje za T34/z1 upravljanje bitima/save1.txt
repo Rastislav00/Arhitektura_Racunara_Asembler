@@ -1,0 +1,83 @@
+#int alg(int *niz, int n);
+#int niz[5]={2354,634,89,234,52};
+.section .text
+.globl alg
+alg:
+
+	pushl %ebp
+	movl %esp, %ebp
+	pushl %edi
+	pushl %esi
+	pushl %ebx
+
+	movl $0, %ebx				#masku imamo u ebx
+	movl $0, %esi				#esi je brojac
+	movl 8(%ebp), %edx			#sada u edx imamo adresu niza 
+	movl 12(%ebp), %edi			#u edi imam broj elemenata niza
+	movl $1, %ebx				#maska u ebx tipa 000...001
+
+opet:	movl (%edx,%esi,4), %eax	#u registru eax imam odgovarajuci broj tj vrednost el niza
+		andl %ebx, %eax				
+		cmpl $0, %eax
+		je shift					#u slucaju nule sammo siftuj
+		jmp srednji					#ako smo naleteli na jedan daj da proverimo
+									#dal mozda nije sledeci nula
+
+shift:	shll $1, %ebx
+		cmpl $0, %ebx
+		jne opet					#jne nije jednako, ako mi maska nije nula idemo opet
+		addl $1, %esi				#nakon ovog pristupacemo sl broju niza
+		cmpl %esi, %edi
+		je krajP					#ako smo prosli kroz sve clanove niza to je kraj
+		movl $1, %ebx				#treba da nam maska opet pocinje od prvog bita
+		jmp opet
+
+srednji:
+		movl (%edx,%esi,4), %eax	
+		shll $1, %ebx				#siftovanjem u levo sada proveravamo sl broj
+		andl %ebx, %eax
+		cmpl $0, %eax
+		je levi
+		shrl $1, %ebx				#vracamo na staru vrednost masku i vracamo se nazad
+		jmp opet
+
+levi:	movl (%edx,%esi,4), %eax	
+		shll $1, %ebx				#siftovanjem u levo sada proveravamo sl broj
+		andl %ebx, %eax
+		cmpl $0, %eax
+		jne invert  					#jne nije jednako
+		shrl $2, %ebx					#ovim vracamo masku na prvobitno stanje
+		jmp opet
+
+
+invert:	movl (%edx,%esi,4), %eax	#opet nam treba taj el niza
+		shrl $1, %ebx				#sada mi bas sa maskom hvatamo onu nulu
+		#opsti algoritam za menjanje odgovarajuceg bita
+		orl %ebx, %eax				#ovim mi editujemo 101 u 111
+
+		movl %eax, (%edx,%esi,4)	#novodobijen broj treba vratiti na tu adresu
+
+		shrl $1, %ebx				#vracamo masku na prvobitno stanje i vracamo se 
+		jmp opet
+
+
+krajP:
+
+popl %ebx
+popl %esi
+popl %edi
+movl %ebp, %esp
+popl %ebp
+ret
+
+
+#ideja algoritma
+#nama je broj sastavljen od bita
+#npr 10100101001010100010 
+#ideja je ovakva pocecu sa desne strane da trazim jedinice
+#ako najdem jedinicu treba proveriti dal je sledeci bit nula
+#ako jeste nula onda jos treba proveriti dal je sledeci bit jedinica
+#ako su ovi uslovi ispunjeni onda cemo da invertujemo nulu u jedinicu
+#i nastavicemo dalje algoritam
+
+
