@@ -1,0 +1,135 @@
+#oznaceni (+-) string u interni oktalni (ili bilo koji drugi)
+#treba voditi racuna o tome da se ispred stringa moze naci + ili - 
+#ako nepise ni + ni - podrazumeva se + 
+
+.section .data
+
+	str: .ascii "25467\0"		#str koji cemo konvertovati
+
+	rez: .long 0 				#rezultat konverijze
+	znak: .long 0 				#predznak ispred stringa
+
+.section .text
+.globl main
+main:
+
+	movl $0, %eax 				#tu ce nam biti rezultat
+	movl $0, %edx 				#da imamo cisti registar pri mnozenju
+	movl $0, %ebx 				#zbog bl 
+	movl $8, %esi
+	movl $str, %ecx 			#adresa stringa u ecx 
+
+	movb (%ecx), %bl 			#pristupanje odg karakteru stringa
+	cmpb $0, %bl 				#provera dal nije string prazan
+	je greska
+
+	cmpb $'-', %bl
+	je negativan
+
+	cmpb $'+', %bl
+	je pozitivan
+
+	jmp provera
+
+negativan:
+	addl $1, %ecx 				#da bi preskocili taj karakter
+	movl $1, znak
+	jmp provera
+
+pozitivan:
+	addl $1, %ecx
+	movl $2, znak
+	jmp provera
+
+
+provera:						#provera dal su unete cifre iz baze 
+
+		cmpl $0, znak
+		je test 				#je jednako 
+
+			movb (%ecx), %bl   	#jednokratno testiranje u slucaju da imamo ispred
+			cmpb $0, %bl    	#stringa +ili - pa da vidimo dal je sl nulterminator
+			je greska
+
+
+test:	movb (%ecx), %bl
+		cmpb $0, %bl 			#dosli do kraja stringa sa proverom
+		je konverzija
+
+		cmpb $'0', %bl 
+		jl greska
+
+		cmpb $'7', %bl 
+		jg greska
+
+		addl $1, %ecx
+		jmp test
+
+
+konverzija:
+		movl $str, %ecx 		
+		cmpl $0, znak 
+		je konv
+		addl $1, %ecx
+
+konv:	movb (%ecx), %bl
+		cmpb $0, %bl 
+		je krajK				#dolazak do kraja stringa je kraj
+
+		subb $'0', %bl 			#da bi dobili prave vrednosti
+
+		mull %esi 				#eax*esi -> edx:eax
+		jc greska
+		addl %ebx, %eax 		#smestanje u broj
+		jc greska
+
+		addl $1, %ecx 			#pristupanje sl el niza 
+		jmp konv 
+
+krajK:	#sada treba proveriti dal je broj bio negativan zbog komplement 2 predstave
+		cmpl $1, znak
+		jne kraj 				#jne nije jednako, ako jeste treba negl
+			negl %eax 				#not +1 , to je komplement 2 pred
+			jmp kraj 
+
+
+
+
+greska: movl $0, %eax
+		jmp kraj
+
+kraj:
+
+	movl %eax, rez
+
+movl $0, %eax
+movl $1, %ebx
+int $0x80
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
